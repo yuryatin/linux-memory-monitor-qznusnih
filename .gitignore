@@ -36,6 +36,11 @@
 *.x86_64
 *.hex
 
+# Build directories and files
+/build/
+/bin/
+/obj/
+
 # Debug files
 *.dSYM/
 *.su
@@ -53,3 +58,25 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# VS Code settings folder
+.vscode/
+
+# MacOS system files
+.DS_Store
+
+# Linux system files
+*~
+
+# CMake build (if we ever use CMake)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# other
+.upload.sh
