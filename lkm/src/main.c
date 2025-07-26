@@ -1,6 +1,6 @@
 /*
  * lmm_qznusnih - A Linux kernel module for monitoring memory accesses
- * Copyright (C) 2025 Alexander
+ * Copyright (C) 2025 Alexander Yuryatin
  * 
  * https://github.com/yuryatin/linux-memory-monitor-qznusnih.git
  *
