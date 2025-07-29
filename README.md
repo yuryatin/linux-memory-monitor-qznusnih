@@ -15,15 +15,15 @@ cd poky
 source oe-init-build-env
 ```
 
-2. Open the file poky/build/conf/local.conf and uncomment the line ```MACHINE ?= "qemux86"```. You may also want to change it to: ```MACHINE = "qemux86"```.
-3. In the same file, add the following line to make Linux include your kernel module (named _qznusnih_) in the image.
-4. Return to the ```poky``` folder and
+2. Open the file poky/build/conf/local.conf and uncomment the line `MACHINE ?= "qemux86"`. You may also want to change it to: `MACHINE = "qemux86"`.
+3. In the same file, add the following line to make Linux include your kernel module (named _qznusnih_) in the image: `IMAGE_INSTALL:append = " qznusnih"`.
+4. Return to the `poky` folder and
 ```
 bitbake-layers create-layer meta-lkm-layer
 bitbake-layers add-layer meta-lkm-layer   # adds to poky/build/conf/bblayers.conf
 cd ../..                                  # (out of poky/)
 ```
-5. Then, clone this utility and merge its ```meta-lkm-layer/``` subfolder into ```poky/meta-lkm-layer/```, removing any unneeded subfolders as you go.
+5. Then, clone this utility and merge its `meta-lkm-layer/` subfolder into `poky/meta-lkm-layer/`, removing any unneeded subfolders as you go.
 ```
 git clone https://github.com/yuryatin/linux-memory-monitor-qznusnih.git
 cp -rf linux-memory-monitor-qznusnih/meta-lkm-layer/ poky/
