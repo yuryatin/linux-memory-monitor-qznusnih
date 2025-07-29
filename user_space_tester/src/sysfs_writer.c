@@ -1,7 +1,7 @@
 #include "sysfs_writer.h"
 
 extern pid_t pid;
-static const char * sysfsPath = "/sys/kernel/lmm_qznusnih/set_address_to_debug";
+static const char * sysfsPath = "/sys/kernel/qznusnih/set_address_to_debug";
 
 int write_to_sysfs(volatile uint8_t * addrToWatch) {
     FILE * sysfs = fopen(sysfsPath, "w");
