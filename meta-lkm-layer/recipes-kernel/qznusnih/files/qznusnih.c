@@ -1,5 +1,5 @@
 /*
- * lmm_qznusnih - A Linux kernel module for monitoring memory accesses
+ * qznusnih - A Linux kernel module for monitoring memory accesses
  * Copyright (C) 2025 Alexander Yuryatin
  * 
  * https://github.com/yuryatin/linux-memory-monitor-qznusnih.git
@@ -189,7 +189,7 @@
      taskToWatch = pid_task(find_vpid(userPID), PIDTYPE_PID);
  
      if (!taskToWatch) {
-         pr_err("Task with PID %d not found by lmm_qznusnih\n", (int) userPID);
+         pr_err("Task with PID %d not found by qznusnih\n", (int) userPID);
          return -ESRCH;
      }
  
@@ -214,23 +214,23 @@
          return PTR_ERR(wpRead);
      }
  
-     pr_info("lmm_qznusnih received address to watch = 0x%lx for pid = %d\n", userAddress, userPID);
+     pr_info("qznusnih received address to watch = 0x%lx for pid = %d\n", userAddress, userPID);
      return count;
  }
  
- static int __init lmm_qznusnih_init(void) {
+ static int __init qznusnih_init(void) {
      settingAttribute.attr.name = "set_address_to_debug";
      settingAttribute.attr.mode = 0220;
      settingAttribute.show = NULL;
      settingAttribute.store = settingsStore;
-     kobjParams = kobject_create_and_add("lmm_qznusnih", kernel_kobj);
+     kobjParams = kobject_create_and_add("qznusnih", kernel_kobj);
      if (!kobjParams) {
-         pr_err("Failed to create kobject for lmm_qznusnih\n");
+         pr_err("Failed to create kobject for qznusnih\n");
          return -ENOMEM;
      }
      int ret = sysfs_create_file(kobjParams, &settingAttribute.attr);
      if (ret) {
-         pr_err("Failed to create sysfs file for lmm_qznusnih\n");
+         pr_err("Failed to create sysfs file for qznusnih\n");
          kobject_put(kobjParams);
          return -ENOMEM;
      }
@@ -256,11 +256,11 @@
      // I experimentally confirmed on i686 under QEMU that when two debug registers are free, the order in which breakpoints are assigned to these free registers is preserved
      attr_r.bp_type = HW_BREAKPOINT_RW;
      // Although HW_BREAKPOINT_RW is intrinsically non-specific for reads, I experimentally confirmed on i686 under QEMU that when two debug registers are set to the same address, only one callback is triggered. This, together with the empirical fact that the assignment order is respected, allows precise separation of HW_BREAKPOINT_W and HW_BREAKPOINT_R when the debug registers are set in this order (write first, then read). Specifically, if HW_BREAKPOINT_W triggers first, HW_BREAKPOINT_RW does not.
-     pr_info("\nlmm_qznusnih user-space memory monitor loaded with sysfs\ninterface at /sys/kernel/lmm_qznusnih/set_address_to_debug,\nwritable by root. Root can set the user-space address to\nmonitor by writing a string containing a hexadecimal address\nand a decimal PID, separated by a space: \"virtualAddress PID\"\n\n");
+     pr_info("\nqznusnih user-space memory monitor loaded with sysfs\ninterface at /sys/kernel/qznusnih/set_address_to_debug,\nwritable by root. Root can set the user-space address to\nmonitor by writing a string containing a hexadecimal address\nand a decimal PID, separated by a space: \"virtualAddress PID\"\n\n");
      return 0;
  }
  
- static void __exit lmm_qznusnih_exit(void) {
+ static void __exit qznusnih_exit(void) {
      //kthread_stop(thread_u);
      //kthread_stop(thread_w);
      if (wpWrite) {
@@ -273,15 +273,15 @@
      }
      sysfs_remove_file(kobjParams, &settingAttribute.attr);
      kobject_put(kobjParams);
-     pr_info("lmm_qznusnih user-space memory monitor unloaded\n");
+     pr_info("qznusnih user-space memory monitor unloaded\n");
  }
  
- module_init(lmm_qznusnih_init);
- module_exit(lmm_qznusnih_exit);
+ module_init(qznusnih_init);
+ module_exit(qznusnih_exit);
  
  MODULE_LICENSE("GPL");
  MODULE_AUTHOR("Alexander Yuryatin");
  MODULE_DESCRIPTION("This Linux kernel module monitors a configurable byte of memory and logs the backtrace that led to the access, with separate handling for read and write operations.");
- MODULE_VERSION("0.0.3");
- MODULE_ALIAS("lmm_qznusnih");
+ MODULE_VERSION("0.0.4");
+ MODULE_ALIAS("qznusnih");
  

@@ -2,7 +2,7 @@
 This Linux kernel module monitors a configurable byte of memory and logs the backtrace that led to the access, with separate handling for read and write operations.
 
 # How it works
-The kernel module is configured to be loadable, i.e., it can be attached to or detached from the kernel at will. Once attached, it creates a file interface with user space at **/sys/kernel/lmm_qznusnih/set_address_to_debug**. Applications with root privileges can write to this interface to specify a virtual address (in user space) and the corresponding process ID to which the memory is allocated.
+The kernel module is configured to be loadable, i.e., it can be attached to or detached from the kernel at will. Once attached, it creates a file interface with user space at **/sys/kernel/qznusnih/set_address_to_debug**. Applications with root privileges can write to this interface to specify a virtual address (in user space) and the corresponding process ID to which the memory is allocated.
 This triggers monitoring of all read and write accesses to the specified byte, with separate handling for each. Every access is logged along with a backtrace (the sequence of function calls that led to the access) which is essential for debugging.
 
 # How to install
@@ -57,4 +57,4 @@ Below are examples of backtraces captured when a monitored byte was written.
 <img width="592" height="478" alt="backtrace" src="https://github.com/user-attachments/assets/dddc9076-f380-458d-966e-3fd78623109f" />
 
 # How to test this utility
-In the *user_space_tester* folder, you will find a small user-space utility. When run with root privileges, it sends the virtual address of one of its own bytes along with its process ID to **/sys/kernel/lmm_qznusnih/set_address_to_debug**. You can monitor the utility’s activity by checking the kernel messages with `dmesg | tail -n 30`.
+In the *user_space_tester* folder, you will find a small user-space utility. When run with root privileges, it sends the virtual address of one of its own bytes along with its process ID to **/sys/kernel/qznusnih/set_address_to_debug**. You can monitor the utility’s activity by checking the kernel messages with `dmesg | tail -n 30`.
