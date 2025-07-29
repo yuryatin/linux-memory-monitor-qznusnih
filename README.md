@@ -42,7 +42,6 @@ bitbake core-image-minimal
 runqemu qemux86 nographic
 ```
 # How to attach and detach this kernel module
-After you launch your Linux Yocto, which has this kernel module incorporated, you can turn it on with the command ```modprobe qznusnih``` and use the command ```rmmod qznusnih``` to switch it off. If you want to check if this module is still attached to the kernel, you may use ```lsmod```. Before launching the module, it may be wise to first limit the spontanious output of kernel messages in the terminal with ```dmesg -n 1```.
 
 After launching your Linux Yocto system with this kernel module incorporated, you can attach the module with `modprobe qznusnih`, detach it with `rmmod qznusnih` and check if the module is currently loaded using `lsmod | grep qznusnih`. Before loading the module, it’s recommended to limit spontaneous kernel message output in the terminal by running `dmesg -n 1`.
 
