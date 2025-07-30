@@ -48,7 +48,7 @@ runqemu qemux86 nographic
 After launching your Linux Yocto system with this kernel module incorporated, you can attach the module with `modprobe qznusnih`, detach it with `rmmod qznusnih` and check if the module is currently loaded using `lsmod | grep qznusnih`. Before loading the module, it’s recommended to limit spontaneous kernel message output in the terminal by running `dmesg -n 1`.
 
 # Backtraces
-Below are examples of backtraces captured when a monitored byte was written.
+Below are examples of backtraces captured when a monitored byte was written. Please note that after these screenshots were taken, the module was renamed from _lmm-qznusnih_ to simply _qznusnih_ to address issues in the buggy Bitbake, and the interface path was updated accordingly to `/sys/kernel/qznusnih/set_address_to_debug`.
 
 
 <img width="592" height="363" alt="header_backtrace" src="https://github.com/user-attachments/assets/118c1ecc-4908-4d7e-944b-8ceaf4c8dfe4" />
@@ -57,4 +57,4 @@ Below are examples of backtraces captured when a monitored byte was written.
 <img width="592" height="478" alt="backtrace" src="https://github.com/user-attachments/assets/dddc9076-f380-458d-966e-3fd78623109f" />
 
 # How to test this utility
-In the `user_space_tester` folder, you will find a small user-space utility. When run with root privileges, it sends the virtual address of one of its own bytes along with its process ID to **/sys/kernel/qznusnih/set_address_to_debug**. You can monitor the utility’s activity by checking the kernel messages with `dmesg | tail -n 30`.
+In the `user_space_tester` folder, you will find a small user-space utility. When run with root privileges, it sends the virtual address of one of its own bytes along with its process ID to `/sys/kernel/qznusnih/set_address_to_debug`. You can monitor the utility’s activity by checking the kernel messages with `dmesg | tail -n 30`.
