@@ -1,6 +1,8 @@
 # Linux memory monitor _qznusnih_
 This Linux kernel module monitors a configurable byte of user space memory and logs the backtrace that led to the access, with separate handling for read and write operations.
 
+<img src="https://github.com/user-attachments/assets/d28407fb-dd2a-44b2-b974-84174dba4bb3" alt="fat32 demo" width="654"/>
+
 # How it works
 The kernel module is configured to be loadable, i.e., it can be attached to or detached from the kernel at will. Once attached, it creates a file interface with user space at **/sys/kernel/qznusnih/set_address_to_debug**. Applications with root privileges can write to this interface to specify a virtual address (in user space) and the corresponding process ID to which the memory is allocated.
 This triggers monitoring of all read and write accesses to the specified byte, with separate handling of read and write operations. Every access is logged along with a backtrace (the sequence of function calls that led to the access) which is essential for debugging.
