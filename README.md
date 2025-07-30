@@ -47,8 +47,6 @@ runqemu qemux86 nographic
 
 After launching your Linux Yocto system with this kernel module incorporated, you can attach the module with `modprobe qznusnih`, detach it with `rmmod qznusnih` and check if the module is currently loaded using `lsmod | grep qznusnih`. Before loading the module, it’s recommended to limit spontaneous kernel message output in the terminal by running `dmesg -n 1`.
 
-<img width="592" height="693" alt="first_launch_in_image" src="https://github.com/user-attachments/assets/f2b30eb3-9419-4497-bb8e-830c9928bede" />
-
 # Backtraces
 Below are examples of backtraces captured when a monitored byte was written.
 
